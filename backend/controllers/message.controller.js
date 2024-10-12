@@ -40,8 +40,7 @@ export const sendMessage = async (req, res) => {
         if(newMessage){
             conversation.messages.push(newMessage._id);
         }
-        await newMessage.save();
-        await conversation.save();
+        Promise.all([newMessage.save(),conversation.save()])
         res.status(201).json({success:true,data:newMessage}) 
 
 
@@ -49,4 +48,24 @@ export const sendMessage = async (req, res) => {
      catch(error){
         res.status(500).json({success:false,message: error.message}) 
      }
+}
+
+export const getMessages = async (req, res) => {
+    try{
+        const {userId} = req.params;
+        const senderId = req.user._id;
+
+        const conversation = await Conversation.findOne({
+            participants:{$all:[senderId,userId]}
+        }).populate({
+            path: 'messages',
+            select: 'message'
+        });
+        if(!conversation){
+            return res.status(404).json({success:false,message:"Conversation not found"})
+        }
+        res.status(200).json({success:true,data:conversation.messages}) 
+    }catch(error){
+        res.status(500).json({success:false,message: error.message}) 
+    }
 }
