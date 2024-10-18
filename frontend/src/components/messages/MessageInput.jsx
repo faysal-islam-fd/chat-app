@@ -5,7 +5,7 @@ import {BsSend} from 'react-icons/bs'
 const MessageInput = () => {
   return (
     <form action="" className="px-4 my-3">
-        <div className="w-full relative bg-purple-700 ">
+        <div className="w-full relative">
             <input type="text"  className="border text-[16px] rounded-lg block w-full p-2.5 bg-gray-700 border-gray-600 text-white" name="" id=""
             placeholder="Send a message"
             />
