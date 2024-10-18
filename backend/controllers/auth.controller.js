@@ -6,9 +6,10 @@ export const signup = async (req,res)=>{
     console.log(req.body);
     
     try{
-        const {fullname,username,password,confirmPassword,gender} = req.body;
-        if(!fullname){
-            return res.status(400).json({success:false,message:"Please enter your fullname."})
+        const {fullName,username,password,confirmPassword,gender} = req.body;
+        
+        if(!fullName){
+            return res.status(400).json({success:false,message:"Please enter your fullName."})
         }
         if(!username){
             return res.status(400).json({success:false,message:"Please enter your username."})
@@ -33,7 +34,7 @@ export const signup = async (req,res)=>{
         const salt = await bcrypt.genSaltSync(10)
         const hashedPass = await bcrypt.hashSync(password,salt)
         const newUser = new User({
-            fullname,
+            fullName,
             username,
             password:hashedPass,
             gender,
@@ -44,7 +45,7 @@ export const signup = async (req,res)=>{
         await newUser.save()
         return res.status(200).json({success:true,user:{ 
             _id:newUser._id,
-            fullname:newUser.fullname,
+            fullName:newUser.fullName,
             username:newUser.username,
             profilePic:newUser.profilePic,
         }})
@@ -77,7 +78,7 @@ export const login = async (req,res)=>{
         generateTokenAndSetCookie(user._id,res)
         return res.status(200).json({success:true,user:{ 
             _id:user._id,
-            fullname:user.fullname,
+            fullName:user.fullName,
             username:user.username,
             profilePic:user.profilePic,
         }})
