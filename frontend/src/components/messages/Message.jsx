@@ -9,7 +9,7 @@ const Message = ({msg}) => {
   const {authUser} = useContext(AuthContext)
   const { selectedConversation } = useConversation()
 
-  const {message,senderId,receiverId,createdAt} = msg;
+  const {message,senderId,createdAt} = msg;
   const sender = authUser._id === senderId
   return (
     <div>

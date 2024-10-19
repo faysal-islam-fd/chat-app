@@ -7,9 +7,7 @@ const Messages = () => {
 
   const lastMessageRef = useRef()
   const {allMessages,loading} = useGetMessage()
-  console.log(allMessages);
   
-  // console.log(allMessages);
   useEffect(()=>{
 lastMessageRef.current?.scrollIntoView({behavior: "smooth"})
   },[allMessages])

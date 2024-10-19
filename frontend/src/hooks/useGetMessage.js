@@ -13,7 +13,6 @@ const useGetMessage = () => {
     
 
     useEffect(()=>{
-        console.log("use Effect executing...");
         const getMessage = async() =>{
             setLoading(true)
             try{
