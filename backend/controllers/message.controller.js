@@ -15,8 +15,7 @@ export const sendMessage = async (req, res) => {
         
         const senderId = req.user._id;
         const receiverUser = await User.findById(receiverId);
-        
-        console.log(receiverUser);
+
         
         if(!receiverUser){
             return res.status(404).json({success:false,message:"Receiver not found"})
@@ -25,13 +24,7 @@ export const sendMessage = async (req, res) => {
             participants:{$all:[senderId,receiverId]}
         });
 
-        
-        if(!conversation){
-                
-            conversation = await Conversation.create({
-                participants:[senderId,receiverId]
-            })
-        }
+    
         const newMessage = new Message({
             senderId,
             receiverId,
@@ -55,17 +48,24 @@ export const getMessages = async (req, res) => {
         const {userId} = req.params;
         const senderId = req.user._id;
 
-        const conversation = await Conversation.findOne({
+        let conversation = await Conversation.findOne({
             participants:{$all:[senderId,userId]}
         }).populate({
             path: 'messages',
-            select: 'message'
+            select: 'message senderId receiverId createdAt',
         });
+        
         if(!conversation){
-            return res.status(404).json({success:false,message:"Conversation not found"})
+                
+                
+            conversation = await Conversation.create({
+                participants:[senderId,userId]
+            })
+            conversation.save()
+            return res.status(201).json({success:true,data:[]})
         }
         res.status(200).json({success:true,data:conversation.messages}) 
     }catch(error){
-        res.status(500).json({success:false,message: error.message}) 
+        res.status(500).json({success:false,message: ""}) 
     }
 }
