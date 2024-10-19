@@ -21,7 +21,7 @@ const useLogin = () => {
             }
             else{
                 localStorage.setItem("authUser",JSON.stringify(user))
-                window.location.reload()
+               
             }
             
         }catch(error){

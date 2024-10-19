@@ -9,8 +9,6 @@ import Conversation from "./Conversation"
 const Conversations = () => {
 
   const {loading,conversations} = useGetConversations()
-  console.log(conversations);
-  
   return (
     <div className="h-3/4 scrollbar-hidden  overflow-y-scroll">
      {
