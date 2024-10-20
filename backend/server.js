@@ -7,9 +7,10 @@ import { connectDB } from './db/connectDB.js'
 import authRoutes from './routes/auth.routes.js'
 import messageRoutes from './routes/message.routes.js'
 import userRoutes from './routes/user.routes.js'
+import { app, server } from './socket/socket.js'
 
 
-const app = express()
+
 
 //middlewire
 app.use(express.json())
@@ -24,7 +25,7 @@ app.use(cookieParser())
  
  const PORT =  process.env.PORT || 5000
 
- app.listen(PORT, () => {
+ server.listen(PORT, () => {
        connectDB()
         console.log('Server is running on port ',PORT)
  })

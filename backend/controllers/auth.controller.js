@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { generateTokenAndSetCookie } from "../utils/generateToken.js";
 
 export const signup = async (req,res)=>{
-    console.log(req.body);
+
     
     try{
         const {fullName,username,password,confirmPassword,gender} = req.body;
@@ -57,6 +57,8 @@ export const signup = async (req,res)=>{
 
 }
 export const login = async (req,res)=>{
+
+    
     try{
         const {username,password} = req.body;
         if(!username){
@@ -66,6 +68,8 @@ export const login = async (req,res)=>{
             return res.status(400).json({success:false,message:"Please enter your password."})
         }
         const user = await User.findOne({username})
+        
+        
         if(!user){
             return res.status(400).json({success:false,message:"User not found!"})
 

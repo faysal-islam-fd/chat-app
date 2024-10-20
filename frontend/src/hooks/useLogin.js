@@ -1,5 +1,4 @@
 import { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../context/AuthContext"
 import toast from "react-hot-toast"
 
@@ -9,6 +8,12 @@ const useLogin = () => {
     const [loading,setLoading] = useState(false)
     const {setAuthUser}= useContext(AuthContext)
     const login = async({username,password}) =>{
+        if(!username){
+            return toast.error("Please provide username")
+        }
+        else if(!password){
+            return toast.error("Please provide password!")
+        }
         setLoading(true)
         try{
             const res = await fetch("/api/auth/login",{
@@ -29,9 +34,7 @@ const useLogin = () => {
             }
             
         }catch(error){
-            toast.error(error.message)
-            console.log(error);
-            
+            toast.error(error.message)            
         }finally{
             setLoading(false)
         }

@@ -9,7 +9,7 @@ const MessageInput = () => {
     e.preventDefault()
     if(!message) return;
 
-    await sendMessage(message)
+    sendMessage(message)
     setMessage('')
   }
   const [message,setMessage] = useState('')

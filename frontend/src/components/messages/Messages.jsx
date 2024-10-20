@@ -2,12 +2,13 @@ import { useEffect, useRef } from "react";
 import useGetMessage from "../../hooks/useGetMessage"
 import Message from "./Message"
 import MessagesSkeleton from "./MessagesSkeleton";
+import useNewMessages from "../../hooks/useNewMessages";
 
 const Messages = () => {
 
   const lastMessageRef = useRef()
   const {allMessages,loading} = useGetMessage()
-  
+  useNewMessages()
   useEffect(()=>{
 lastMessageRef.current?.scrollIntoView({behavior: "smooth"})
   },[allMessages])

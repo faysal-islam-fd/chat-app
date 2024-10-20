@@ -11,6 +11,8 @@ const Message = ({msg}) => {
 
   const {message,senderId,createdAt} = msg;
   const sender = authUser._id === senderId
+  
+  const shouldShake = msg.shouldShake ? "shake" : ""
   return (
     <div>
    
@@ -23,10 +25,8 @@ const Message = ({msg}) => {
       />
         </div>
   </div>
-  <div className="chat-header">
-    <time className="text-xs opacity-50"></time>
-  </div>
-  <div className={`chat-bubble text-gray-50  ${sender ? " bg-blue-500" :"bg-slate-900"}`}>{message}</div>
+ 
+  <div className={`chat-bubble text-gray-50 ${shouldShake}  ${sender ? " bg-blue-500" :"bg-slate-900"}`}>{message}</div>
   <div className="chat-footer opacity-50">sent at {getTime(createdAt)}</div>
 </div>
     </div>
