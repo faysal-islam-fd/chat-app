@@ -11,8 +11,6 @@ import { AuthContext } from "./context/AuthContext"
 const App = () => {
   const {authUser} = useContext(AuthContext)
 
-console.log(window.location.origin);
-console.log(import.meta.env.VITE_APP_API_URL);
 
 
   return (
